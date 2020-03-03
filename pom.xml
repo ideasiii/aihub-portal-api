@@ -20,7 +20,7 @@
 		<camel-version>2.21.0</camel-version>
 		<activemq-version>5.7.0</activemq-version>
 		<spring-rabbit.version>1.7.1.RELEASE</spring-rabbit.version>
-		<amqp-client.version>4.0.2</amqp-client.version>
+		<amqp-client.version>4.8.0</amqp-client.version>
 		<commons-lang3.version>3.7</commons-lang3.version>
 		<es.version>6.4.0</es.version>
 		<package-assembly-dir>${project.build.directory}/assembly</package-assembly-dir>
