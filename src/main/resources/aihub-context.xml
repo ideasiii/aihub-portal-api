@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+          http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-3.2.xsd
+          http://camel.apache.org/schema/spring	http://camel.apache.org/schema/spring/camel-spring.xsd
+          http://www.springframework.org/schema/rabbit
+          http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
+">
+
+	<context:annotation-config/>
+    <context:component-scan base-package="iii.aihub">
+        <context:include-filter type="regex" expression="iii.aihub.route.*"/>
+        <context:include-filter type="regex" expression="iii.aihub.utils.*"/>
+        <context:include-filter type="regex" expression="iii.aihub.helper.*"/>
+    </context:component-scan>
+
+    <bean class="iii.aihub.utils.SystemPropertiesReader">
+        <property name="resources" value="classpath:application.properties"/>
+    </bean>
+
+    <!-- data source -->
+    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <property name="poolName" value="aihub_pool"></property>
+        <property name="dataSourceClassName"
+                  value="org.mariadb.jdbc.MariaDbDataSource">
+        </property>
+        <property name="registerMbeans" value="true"></property>
+        <property name="maximumPoolSize" value="20"></property>
+        <property name="dataSourceProperties">
+            <props>
+                <prop key="url">jdbc:mysql://3.114.39.198:3306/aihub?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull&amp;useCursorFetch=true</prop>
+                <prop key="user">aihub</prop>
+                <prop key="password">!@#$qwer</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+        <constructor-arg ref="hikariConfig"></constructor-arg>
+    </bean>
+    <!-- data source -->
+
+
+	<bean id="shutdown" class="org.apache.camel.impl.DefaultShutdownStrategy">
+	    <property name="timeout" value="20"/>
+	</bean>
+  	<camel:camelContext id="camelContext" autoStartup="true" threadNamePattern="aihub-thread-#counter#">
+        <camel:routeBuilder ref="baseRouter" />
+        <camel:routeBuilder ref="articleRouter" />
+        <camel:routeBuilder ref="venderRouter" />
+        <camel:routeBuilder ref="solutionRouter" />
+        <camel:routeBuilder ref="memberRouter" />
+        <camel:routeBuilder ref="authorRouter" />
+        <camel:routeBuilder ref="contactRouter" />
+        <camel:routeBuilder ref="tagsRouter" />
+  	</camel:camelContext>
+
+</beans>

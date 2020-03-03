@@ -1,0 +1,52 @@
+aihub.org.tw.conf:
+<VirtualHost _default_:80>
+        ServerName aihub.org.tw
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/html
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        <Directory "/var/www/html">
+                Options Indexes FollowSymLinks
+                AllowOverride None
+                Require all granted
+        </Directory>
+        #Include conf-available/serve-cgi-bin.conf
+RewriteEngine on
+RewriteCond %{SERVER_NAME} =aihub.org.tw
+RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+</VirtualHost>
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+
+aihub.org.tw-le-ssl.conf
+<VirtualHost _default_:443>
+        ServerName aihub.org.tw
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/html
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+#       <Directory "/var/www/html">
+#                Options Indexes FollowSymLinks
+#                AllowOverride None
+#                Require all granted
+#        </Directory>
+
+        #Include conf-available/serve-cgi-bin.conf
+
+
+Include /etc/letsencrypt/options-ssl-apache.conf
+SSLCertificateFile /etc/letsencrypt/live/aihub.org.tw/fullchain.pem
+SSLCertificateKeyFile /etc/letsencrypt/live/aihub.org.tw/privkey.pem
+
+        <Location /member/vfps>
+                ProxyPass               http://localhost:8808/member/vfps
+                ProxyPassReverse        http://localhost:8808/member/vfps
+        </Location>
+</VirtualHost>
+</IfModule>
+
+

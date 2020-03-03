@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration xmlns="http://www.jooq.org/xsd/jooq-codegen-3.11.0.xsd">
+  <!-- Configure the database connection here -->
+  <jdbc>
+      <driver>com.mysql.jdbc.Driver</driver>
+      <url>jdbc:mysql://3.114.39.198:3306/aihub</url>
+      <user>aihub</user>
+      <password>!@#$qwer</password>
+  </jdbc>
+  <generator>
+    <database>
+      <name>org.jooq.meta.mariadb.MariaDBDatabase</name>
+      <includes>.*</includes>
+      <excludes></excludes>
+      <inputSchema>aihub</inputSchema>
+    </database>
+
+    <generate>
+      <!-- Generation flags: See advanced configuration properties -->
+    </generate>
+
+    <target>
+      <!-- The destination package of your generated classes (within the
+           destination directory)
+           
+           jOOQ may append the schema name to this package if generating multiple schemas,
+           e.g. org.jooq.your.packagename.schema1
+                org.jooq.your.packagename.schema2 -->
+      <packageName>jooq.generated.elastic.crawler.aihub</packageName>
+
+      <!-- The destination directory of your generated classes -->
+      <directory>src/main/java</directory>
+    </target>
+  </generator>
+</configuration>
