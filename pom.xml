@@ -17,7 +17,7 @@
 		<jdk-version>1.8</jdk-version>
 		<spring-version>4.3.7.RELEASE</spring-version>
 		<slf4j-version>1.7.25</slf4j-version>
-		<camel-version>2.21.0</camel-version>
+		<camel-version>2.25.1</camel-version>
 		<activemq-version>5.7.0</activemq-version>
 		<spring-rabbit.version>1.7.1.RELEASE</spring-rabbit.version>
 		<amqp-client.version>4.0.2</amqp-client.version>
