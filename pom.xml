@@ -22,7 +22,7 @@
 		<spring-rabbit.version>1.7.1.RELEASE</spring-rabbit.version>
 		<amqp-client.version>4.0.2</amqp-client.version>
 		<commons-lang3.version>3.7</commons-lang3.version>
-		<es.version>6.4.0</es.version>
+		<es.version>6.8.15</es.version>
 		<package-assembly-dir>${project.build.directory}/assembly</package-assembly-dir>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jooq.version>3.11.7</jooq.version>
